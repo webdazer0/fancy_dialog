@@ -61,6 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     builder: (BuildContext context) => FancyDialog(
                           defaultButtons: false,
                           actionButtons: ElevatedButton(
+                              key: testKeys[0],
                               onPressed: () {},
                               child: Text('Your custom button')),
                           cancelFun: () {
@@ -91,6 +92,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 showDialog(
                     context: context,
                     builder: (BuildContext context) => FancyDialog(
+                          key: testKeys[1],
                           title: "Fancy Gif Dialog",
                           titleTextStyle:
                               TextStyle(color: Colors.red, fontSize: 25),
