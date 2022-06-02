@@ -9,8 +9,8 @@ const testKeys = [Key("fancyButtons"), Key("flatButtons")];
 class FancyDialog extends StatefulWidget {
   const FancyDialog(
       {Key? key,
-      @required this.title,
-      @required this.description,
+      required this.title,
+      required this.description,
       this.okFun,
       this.titleTextStyle = const TextStyle(
           color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
@@ -148,11 +148,11 @@ class GifDialogState extends State<FancyDialog> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     if(!defaultButtons!) assert(actionButtons != null, '\n***actionButtons cannot be null when defaultButtons is false***\n');
-    width = MediaQuery.of(context).size.width;
-    height = MediaQuery.of(context).size.height;
-    var dialogWidth = 0.36 * height!;
+    width = MediaQuery.maybeOf(context)?.size.width;
+    height = MediaQuery.maybeOf(context)?.size.height;
+    var dialogWidth = 0.36 * (height ?? 0);
 
-    assert(MediaQuery.of(context) != null,
+    assert(MediaQuery.maybeOf(context) != null,
         '\n****context does not contain media query object***\n');
     assert(title != null, '\n****title is required***\n');
     assert(description != null, '\n****description is required***\n');
