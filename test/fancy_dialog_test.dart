@@ -1,5 +1,3 @@
-import 'dart:ui';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fancy_dialog/FancyAnimation.dart';
 import 'package:fancy_dialog/FancyGif.dart';
@@ -17,7 +15,7 @@ void main(){
          await tester.pumpWidget(
               FancyDialog(
                 title: "Fancy Gif Dialog",
-                description:"This is descreption for fancy gif,you can load any image or gif to be displayed :), and you can choose between two themes Fancy and Flat",
+                description: "This is description for fancy gif,you can load any image or gif to be displayed :), and you can choose between two themes Fancy and Flat",
                 animationType: FancyAnimation.BOTTOM_TOP,
                 theme: FancyTheme.FANCY,
                 gifPath: FancyGif.MOVE_FORWARD, //'./assets/walp.png',
@@ -42,7 +40,8 @@ void main(){
           
           await tester.pumpWidget(
               FancyDialog(
-                description:"This is descreption for fancy gif,you can load any image or gif to be displayed :), and you can choose between two themes Fancy and Flat",
+                title: null,
+                description:"This is description for fancy gif,you can load any image or gif to be displayed :), and you can choose between two themes Fancy and Flat",
                 animationType: FancyAnimation.BOTTOM_TOP,
                 theme: FancyTheme.FANCY,
                 gifPath: FancyGif.MOVE_FORWARD, //'./assets/walp.png',
@@ -50,7 +49,7 @@ void main(){
               )
            );
           
-           await tester.pump(Duration(seconds: 3));
+           await tester.pump(Duration(seconds: 5));
            expect(tester.takeException(),isAssertionError);
 
         }catch(err){}
@@ -59,12 +58,13 @@ void main(){
        });
 
 
-       testWidgets('null descreption test test', (WidgetTester tester) async {
+       testWidgets('null description test test', (WidgetTester tester) async {
 
         try{
           await tester.pumpWidget(
               FancyDialog(
                 title: "",
+                description: null,
                 animationType: FancyAnimation.BOTTOM_TOP,
                 theme: FancyTheme.FANCY,
                 gifPath: FancyGif.MOVE_FORWARD, //'./assets/walp.png',
