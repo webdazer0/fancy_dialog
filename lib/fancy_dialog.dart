@@ -34,7 +34,7 @@ class FancyDialog extends StatefulWidget {
   final Function? okFun;
   final Function? cancelFun;
   final int? animationType;
-  final String? gifPath;
+  final FancyGif? gifPath;
   final Color? okColor;
   final Color? cancelColor;
   final String? ok;
@@ -61,7 +61,8 @@ class GifDialogState extends State<FancyDialog> with TickerProviderStateMixin {
   String? description;
   Function? okFun;
   Function? cancelFun;
-  String? gifPath;
+  FancyGif? gifPath;
+  String? path;
   Color? okColor;
   Color? cancelColor;
   TextStyle? titleTextStyle;
@@ -76,8 +77,8 @@ class GifDialogState extends State<FancyDialog> with TickerProviderStateMixin {
   void initState() {
     title = widget.title;
     description = widget.description;
-    okFun = widget.okFun ?? (){};
-    cancelFun = widget.cancelFun ?? (){};
+    okFun = widget.okFun ?? () {};
+    cancelFun = widget.cancelFun ?? () {};
     okColor = widget.okColor;
     cancelColor = widget.cancelColor;
     gifPath = widget.gifPath;
@@ -89,25 +90,33 @@ class GifDialogState extends State<FancyDialog> with TickerProviderStateMixin {
     defaultButtons = widget.defaultButtons;
     actionButtons = widget.actionButtons;
 
-    if (gifPath == 'CHECK_MAIL') {
-      gifPath = 'assets/gif3.gif';
-      package = 1;
-    } else if (gifPath == 'FUNNY_MAN') {
-      gifPath = 'assets/gif1.gif';
-      package = 1;
-    } else if (gifPath == 'MOVE_FORWARD') {
-      gifPath = 'assets/gif4.gif';
-      package = 1;
-    } else if (gifPath == 'PLAY_MEDIA') {
-      gifPath = 'assets/gif2.gif';
-      package = 1;
-    } else if (gifPath == 'SUBMIT') {
-      gifPath = 'assets/gif5.gif';
-      package = 1;
-    } else if (gifPath == 'SHARE') {
-      gifPath = 'assets/gif6.gif';
+    if(gifPath != null) {
+      path = 'assets/${gifPath?.name}.gif';
       package = 1;
     }
+
+
+
+    // if (gifPath == FancyGif.CHECK_MAIL) {
+    //   path = 'assets/${gifPath?.name}.gif';
+    //   package = 1;
+    // } else if (gifPath == FancyGif.FUNNY_MAN) {
+    //   path = 'assets/FUNNY_MAN.gif';
+    //   package = 1;
+    // } else if (gifPath == FancyGif.MOVE_FORWARD) {
+    //   path = 'assets/MOVE_FORWARD.gif';
+    //   package = 1;
+    // } else if (gifPath == FancyGif.PLAY_MEDIA) {
+    //   path = 'assets/PLAY_MEDIA.gif';
+    //   package = 1;
+    // } else if (gifPath == FancyGif.SUBMIT) {
+    //   path = 'assets/SUBMIT.gif';
+    //   package = 1;
+    // } else if (gifPath == FancyGif.SHARE) {
+    //   path = 'assets/SHARE.gif';
+    //   package = 1;
+    // }
+
     double? start;
     int animationType = widget.animationType!;
     switch (animationType) {
@@ -147,7 +156,9 @@ class GifDialogState extends State<FancyDialog> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if(!defaultButtons!) assert(actionButtons != null, '\n***actionButtons cannot be null when defaultButtons is false***\n');
+    if (!defaultButtons!)
+      assert(actionButtons != null,
+          '\n***actionButtons cannot be null when defaultButtons is false***\n');
     width = MediaQuery.maybeOf(context)?.size.width;
     height = MediaQuery.maybeOf(context)?.size.height;
     var dialogWidth = 0.36 * (height ?? 0);
@@ -157,9 +168,9 @@ class GifDialogState extends State<FancyDialog> with TickerProviderStateMixin {
     assert(title != null, '\n****title is required***\n');
     assert(description != null, '\n****description is required***\n');
 
-    var image = ClipRRect(
+    final image = ClipRRect(
       child: Image.asset(
-        gifPath!,
+        path!,
         fit: BoxFit.fill,
         width: dialogWidth * 1.1, // dialogWidth will get left/right margin?
         height: dialogWidth * 0.6,
